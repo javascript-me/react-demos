@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+
+    var result = [
+        {country:"China", cities:["Shenzhen", "Beijing", "Guangzhou"]},
+        {country:"UK", cities:["London0", "London1", "London2"]},
+        {country:"US", cities:["Newyork0", "Newyork1", "Newyork2"]}
+    ];
+
+    var countries = [];
+    for (var i = 0 ; i < result.length ; i++)
+    {
+        countries.push(result[i].country);
+    }
+
+    var Input = React.createClass({
+        getInitialState: function() {
+            return {
+                countries: countries,
+                cities: result[0].cities
+            };
+        },
+
+        handleChange: function(event) {
+            var selectCountry = event.target.value;
+
+            var newCities;
+            for (var i = 0 ; i < result.length ; i++) {
+                if (selectCountry == result[i].country)
+                {
+                    newCities = result[i].cities;
+                    break;
+                }
+            }
+
+            this.setState(
+                    {
+                        countries: countries,
+                        cities: newCities
+                    }
+            );
+        },
+
+        render: function () {
+            return (
+                    <div>
+                        Country
+                        <select onChange={this.handleChange}>
+                            {
+                                React.Children.map(this.state.countries, function (child) {
+                                    return <option>{child}</option>;
+                                })
+                            }
+                        </select>
+                        City
+                        <select>
+                            {
+                                React.Children.map(this.state.cities, function (child) {
+                                    return <option>{child}</option>;
+                                })
+                            }
+                        </select>
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(<Input/>, document.getElementById('example'));
+</script>
+</body>
+</html>
