@@ -15,14 +15,16 @@
         {country:"US", cities:["Newyork0", "Newyork1", "Newyork2"]}
     ];
 
-    var countries = [];
-    for (var i = 0 ; i < result.length ; i++)
-    {
-        countries.push(result[i].country);
-    }
 
-    var Input = React.createClass({
+
+    var Location = React.createClass({
         getInitialState: function() {
+
+            var countries = [];
+            result.forEach(function (element) {
+                countries.push(element.country);
+            })
+
             return {
                 countries: countries,
                 cities: result[0].cities
@@ -43,7 +45,7 @@
 
             this.setState(
                     {
-                        countries: countries,
+                        countries: this.state.countries,
                         cities: newCities
                     }
             );
@@ -73,7 +75,7 @@
         }
     });
 
-    ReactDOM.render(<Input/>, document.getElementById('example'));
+    ReactDOM.render(<Location />, document.getElementById('example'));
 </script>
 </body>
 </html>
