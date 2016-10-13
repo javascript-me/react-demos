@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../build/react.js"></script>
-    <script src="../build/react-dom.js"></script>
-    <script src="../build/browser.min.js"></script>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 </head>
 <body>
+
 <div id="example"></div>
+
 <script type="text/babel">
 
     var result = [
@@ -15,11 +17,9 @@
         {country:"US", cities:["Newyork0", "Newyork1", "Newyork2"]}
     ];
 
-
-
     var Location = React.createClass({
-        getInitialState: function() {
 
+        getInitialState: function() {
             var countries = [];
             result.forEach(function (element) {
                 countries.push(element.country);
@@ -31,17 +31,10 @@
             };
         },
 
-        handleChange: function(event) {
-            var selectCountry = event.target.value;
-
-            var newCities;
-            for (var i = 0 ; i < result.length ; i++) {
-                if (selectCountry == result[i].country)
-                {
-                    newCities = result[i].cities;
-                    break;
-                }
-            }
+        updateCities: function(event) {
+            var newCities = result.filter(function (element) {
+                return element.country == event.target.value;
+            })[0].cities;
 
             this.setState(
                     {
@@ -55,7 +48,7 @@
             return (
                     <div>
                         Country
-                        <select onChange={this.handleChange}>
+                        <select onChange={this.updateCities}>
                             {
                                 React.Children.map(this.state.countries, function (child) {
                                     return <option>{child}</option>;
