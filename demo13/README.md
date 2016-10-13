@@ -8,5 +8,5 @@ $ npm install
 $ npm run build
 
 # launch http server
-$ node server.js
+$ node ./build/server.js
 ```

@@ -28,7 +28,7 @@ http.createServer(function (req, res) {
     res.end(html);
   } else if (req.url == '/bundle.js') {
     res.setHeader('Content-Type', 'text/javascript');
-    browserify().add('./browser.js').transform(literalify.configure({
+    browserify().add('./build/browser.js').transform(literalify.configure({
       'react': 'window.React',
       'react-dom': 'window.ReactDOM'
     })).bundle().pipe(res);
